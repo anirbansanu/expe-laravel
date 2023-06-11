@@ -3,22 +3,22 @@
     <table>
         <thead>
             <tr>
-                @foreach ($columns as $column)
+                @foreach ($_columns as $_column)
                     <th>
-                        <button wire:click="sortBy('{{ $column }}')">{{ ucfirst($column) }}</button>
+                        <button wire:click="sortBy('{{ $_column['data'] }}')">{{ ucfirst($_column['title']) }}</button>
                     </th>
                 @endforeach
             </tr>
         </thead>
         <tbody>
-            @foreach ($users as $user)
+            @foreach ($_data as $_item)
                 <tr>
-                    @foreach ($columns as $column)
-                        <td>{{ $user->$column }}</td>
+                    @foreach ($_columns as $_column)
+                        <td>{{ $_item->$_column['data'] ?? "" }}</td>
                     @endforeach
                 </tr>
             @endforeach
         </tbody>
     </table>
-    {{ $users->links() }}
+    {{ $_data->links() }}
 </div>
