@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('category_id');
             $table->string('name');
+            $table->longText('description');
             $table->unsignedBigInteger('added_by');
             $table->timestamps();
 
