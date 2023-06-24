@@ -13,16 +13,21 @@ class SubCategoryDataTable extends Component
     public $search;
     public $sortField;
     public $sortDirection = 'asc';
-    public $columns = ['name', 'description','uploaded_at'];
+    public $columns = ['name', 'description','category_name','uploaded_at'];
     public $actions = [
                         "edit"=>["title"=>"Edit","route"=>'users.subcategories.edit'],
                         "delete"=>["title"=>"Delete","route"=>'users.subcategories.destroy'],
                         "others"=>[]
                     ];
+    public SubCategory $subcategories;
 
-    public function render()
+    public function __construct(SubCategory $subcategories)
     {
-        $subcategories = SubCategory::query();
+        $this->subcategories = $subcategories;
+    }
+    public function render($subcategories)
+    {
+        $subcategories = $this->subcategories->query();
         if($this->search)
             $subcategories->when($this->search, function ($query) {
                 $query->where('name', 'like', '%' . $this->search . '%');

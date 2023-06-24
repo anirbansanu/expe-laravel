@@ -12,10 +12,17 @@ class SubCategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Category $subcategory)
+    public function index(Category $category = null)
     {
 
-        $subcategories = SubCategory::where('added_by', Auth::id())->where('category_id',$subcategory)->orderBy('id','desc')->get();
+
+        $subcategories = SubCategory::where('added_by', Auth::id());
+        if($category != null)
+        {
+            $subcategories = $subcategories->where('category_id',$category->id);
+        }
+        $subcategories = $subcategories->orderBy('id','desc');
+        // return $subcategories;
         return view('users.subcategories.index', compact('subcategories'));
     }
     public function create()
@@ -26,7 +33,7 @@ class SubCategoryController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validator = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
             'category' => 'required|numeric',
@@ -35,6 +42,7 @@ class SubCategoryController extends Controller
         SubCategory::create([
             'name' => $request->name,
             'description' => $request->description,
+            'category_id' => $request->category,
             'added_by' => Auth::id(), // Associate the category with the authenticated user
         ]);
 
