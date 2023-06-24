@@ -4,7 +4,7 @@
     </div>
 
     <table class="border-collapse table-auto w-full">
-        <thead>
+        <thead class="bg-indigo-300 ">
             <tr>
                 <th class="text-left py-2 px-4 border-b border-gray-300">Sl no.</th>
                 @foreach ($columns as $column)
