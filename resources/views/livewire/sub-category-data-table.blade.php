@@ -13,7 +13,7 @@
                     </th>
                 @endforeach
                 @if (isset($actions) && count($actions)>0)
-                    <th class="text-start py-2 px-4 border-b border-gray-300">{{ __('Actions') }}</th>
+                    <th class="text-center py-2 px-4 border-b border-gray-300">{{ __('Actions') }}</th>
                 @endif
             </tr>
         </thead>
