@@ -4,7 +4,7 @@
     </div>
 
     <table class="border-collapse table-auto w-full">
-        <thead>
+        <thead class="bg-indigo-300 ">
             <tr>
                 <th class="text-left py-2 px-4 border-b border-gray-300">Sl no.</th>
                 @foreach ($columns as $column)
@@ -18,8 +18,8 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($categories as $key=>$category)
-                <tr>
+            @foreach ($subcategories as $key=>$category)
+                <tr class="odd:bg-white even:bg-slate-50">
                     <td class="text-start py-2 px-4 border-b border-gray-300">{{ $key+1 }}</td>
                     @foreach ($columns as $column)
                         <td class="text-start py-2 px-4 border-b border-gray-300">{{ $category[$column] }}</td>
@@ -50,12 +50,12 @@
                                                         <form action="{{route($action['route'],$category)}}" method="POST">
                                                             @method("DELETE")
                                                             @csrf
-                                                            <button type="submit" class="text-left w-full block px-4 py-2 hover:bg-gray-100 light:hover:bg-gray-600 light:hover:text-white">{{$action['title']}}</button>
+                                                            <button type="submit" class="text-left w-full block px-4 py-2 hover:bg-violet-100 light:hover:bg-violet-600 light:hover:text-white">{{$action['title']}}</button>
                                                         </form>
                                                     </li>
                                                 @else
                                                     <li class="text-left ">
-                                                        <a href="{{route($action['route'],$category)}}" class="block px-4 py-2 hover:bg-gray-100 light:hover:bg-gray-600 light:hover:text-white">{{$action['title']}}</a>
+                                                        <a href="{{route($action['route'],$category)}}" class="block px-4 py-2 hover:bg-violet-100 light:hover:bg-violet-600 light:hover:text-white">{{$action['title']}}</a>
                                                     </li>
                                                 @endif
                                             @endif
@@ -77,7 +77,7 @@
         </tbody>
     </table>
     <div class="mt-4">
-        {{ $categories->links() }}
+        {{ $subcategories->links() }}
     </div>
 </div>
 <script>

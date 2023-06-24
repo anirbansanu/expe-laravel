@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SubCategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +24,8 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
 
     Route::name('users.')->prefix('users')->group(function () {
         Route::resource('categories', CategoryController::class);
+        Route::resource('subcategories', SubCategoryController::class)->except('index');
+        Route::get('/subcategories/index/{category}',[SubCategoryController::class,'index'])->name('subcategories.index');
     });
 
 });

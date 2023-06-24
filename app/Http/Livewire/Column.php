@@ -16,6 +16,13 @@ class Column {
     {
         return mb_convert_case(str_replace('_', ' ', $value), MB_CASE_TITLE, 'UTF-8');
     }
-
+    public static function dataFormat($value)
+    {
+        $arr = explode(".",$value);
+        if(count($arr)>0)
+            foreach($arr as $arr_item)
+                $arr_item = $arr;
+        return $relation;
+    }
 }
 ?>

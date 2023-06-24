@@ -13,10 +13,13 @@ class CategoryDataTable extends Component
     public $search;
     public $sortField;
     public $sortDirection = 'asc';
-    public $columns = ['name', 'category_description'];
+    public $columns = ['name', 'category_description','uploaded_at'];
     public $actions = [
                         "edit"=>["title"=>"Edit","route"=>'users.categories.edit'],
-                        "delete"=>["title"=>"Delete","route"=>'users.categories.destroy']
+                        "delete"=>["title"=>"Delete","route"=>'users.categories.destroy'],
+                        "others"=>[
+                            "subcategories" => ["title"=>"Subcategories","route"=>'users.subcategories.index']
+                        ]
                     ];
 
     public function render()

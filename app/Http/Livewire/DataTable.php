@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\User;
 use Livewire\WithPagination;
 use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 use Column;
 abstract class DataTable extends Component
@@ -49,9 +50,9 @@ abstract class DataTable extends Component
 
         return $collection;
     }
-    public function render($model)
+    public function render(Model $model)
     {
-        $_data = $model::query()
+        $_data = $model->query()
             ->when($this->_search, function ($query) {
                 $query->where('name', 'like', '%' . $this->_search . '%');
             })
