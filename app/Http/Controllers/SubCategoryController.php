@@ -21,9 +21,9 @@ class SubCategoryController extends Controller
         {
             $subcategories = $subcategories->where('category_id',$category->id);
         }
-        $subcategories = $subcategories->orderBy('id','desc');
+        $subcategories = $subcategories->orderBy('id','desc')->get();
         // return $subcategories;
-        return view('users.subcategories.index', compact('subcategories'));
+        return view('users.subcategories.index', compact('subcategories','category'));
     }
     public function create()
     {
@@ -46,7 +46,7 @@ class SubCategoryController extends Controller
             'added_by' => Auth::id(), // Associate the category with the authenticated user
         ]);
 
-        return redirect()->route('users.subcategories.index')->with('success', 'SubCategory created successfully.');
+        return redirect()->route('users.subcategories.index',$request->category)->with('success', 'SubCategory created successfully.');
     }
 
     public function show(SubCategory $subcategory)

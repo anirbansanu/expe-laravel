@@ -2,8 +2,10 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Category;
 use Livewire\Component;
 use App\Models\SubCategory;
+use Illuminate\Support\Facades\Auth;
 use Livewire\WithPagination;
 
 class SubCategoryDataTable extends Component
@@ -11,31 +13,37 @@ class SubCategoryDataTable extends Component
     use WithPagination;
 
     public $search;
-    public $sortField;
-    public $sortDirection = 'asc';
+    public $sortField = 'created_at';
+    public $sortDirection = 'desc';
     public $columns = ['name', 'description','category_name','uploaded_at'];
     public $actions = [
                         "edit"=>["title"=>"Edit","route"=>'users.subcategories.edit'],
                         "delete"=>["title"=>"Delete","route"=>'users.subcategories.destroy'],
                         "others"=>[]
                     ];
-    public SubCategory $subcategories;
+    public $category;
 
-    public function __construct(SubCategory $subcategories)
+    public function mount(Category $category = null)
     {
-        $this->subcategories = $subcategories;
+        $this->category = $category;
     }
-    public function render($subcategories)
+    public function render()
     {
-        $subcategories = $this->subcategories->query();
-        if($this->search)
-            $subcategories->when($this->search, function ($query) {
-                $query->where('name', 'like', '%' . $this->search . '%');
-            });
-        if($this->sortField)
-            $subcategories->orderBy($this->sortField, $this->sortDirection);
+        $query = SubCategory::where('added_by', Auth::id());
 
-            $subcategories = $subcategories->paginate(10);
+        if ($this->category) {
+            $query->where('category_id', $this->category->id);
+        }
+
+        if ($this->search) {
+            $query->where('name', 'like', '%' . $this->search . '%');
+        }
+
+        if ($this->sortField) {
+            $query->orderBy($this->sortField, $this->sortDirection);
+        }
+
+        $subcategories = $query->paginate(10);
 
         return view('livewire.sub-category-data-table', compact('subcategories'));
     }
