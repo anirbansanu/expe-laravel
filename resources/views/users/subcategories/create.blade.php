@@ -12,8 +12,8 @@
                     <form action="{{ route('users.subcategories.store') }}" method="POST">
                         @csrf
                         <div class="mb-4">
-                            <label for="large" class="block mb-2 text-base font-medium text-gray-900 dark:text-white">Select Category</label>
-                            <select id="large" name="category" class="block w-full px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <label for="large" class="block mb-2 text-base font-medium text-gray-900 light:text-dark">Select Category</label>
+                            <select id="large" name="category" class="block w-full px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500">
                                 <option selected>Choose a Category</option>
                                 @forelse ($categories as $category)
                                     <option value="{{$category->id}}">{{$category->name}}</option>
@@ -22,18 +22,21 @@
                                 @endforelse
 
                             </select>
+                            @error('category')
+                                <span class="text-sm text-red-600">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="mb-4">
                             <label for="name" class="font-bold text-gray-800">Sub Category Name</label>
-                            <input type="text" name="name" id="name" class="border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full">
+                            <input type="text" name="name" id="name" class="border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full" value="{{old('content')}}">
                             @error('name')
-                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                <span class="text-sm text-red-600">{{ $message }}</span>
                             @enderror
                         </div>
 
                         <div class="mb-4">
                             <label for="description" class="font-bold text-gray-800">Sub Category Description</label>
-                            <textarea name="description" id="description"  class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500" rows="4"></textarea>
+                            <textarea name="description" id="description"  class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500" rows="4">{{old('content')}}</textarea>
 
                             @error('description')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>

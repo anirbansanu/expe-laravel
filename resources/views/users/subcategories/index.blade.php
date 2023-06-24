@@ -14,7 +14,7 @@
     </div>
 </x-slot>
     <div class="container px-4">
-        @livewire('sub-category-data-table')
+        @livewire('sub-category-data-table', ['subcategories' => $subcategories])
 
     </div>
 </x-app-layout>
