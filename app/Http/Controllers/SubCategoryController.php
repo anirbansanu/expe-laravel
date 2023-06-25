@@ -67,24 +67,25 @@ class SubCategoryController extends Controller
 
     public function update(Request $request, SubCategory $subcategory)
     {
+        // return $request->all();
         // Check if the authenticated user is authorized to update the category
         if ($subcategory->added_by !== Auth::id()) {
-            return redirect()->route('users.subcategories.index')->with('error', 'You are not authorized to update this category.');
+            return redirect()->route('dashboard')->with('error', 'You are not authorized to update this category.');
         }
 
         $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'category' => 'required|numeric',
+            'category_description' => 'required|string',
+            'category' => 'required',
         ]);
 
         $subcategory->update([
             'name' => $request->name,
-            'description' => $request->description,
+            'description' => $request->category_description,
             'category_id' => $request->category
         ]);
 
-        return redirect()->route('users.subcategories.index')->with('success', 'SubCategory updated successfully.');
+        return redirect()->route('users.subcategories.index',$request->category)->with('success', 'SubCategory updated successfully.');
     }
 
     public function destroy(SubCategory $subcategory)

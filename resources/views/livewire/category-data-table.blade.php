@@ -1,19 +1,19 @@
-<div class="container mx-auto px-4">
+<div class="container mx-auto px-4 w-full">
     <div class="w-full flex items-center justify-end m-2 p-2">
         <input type="text" wire:model.debounce.300ms="search" placeholder="Search..." class="w-half px-4 py-2 border border-gray-300 rounded-md mb-4" />
     </div>
 
-    <table class="border-collapse table-auto w-full">
+    <table class="border-collapse table-auto ">
         <thead class="bg-indigo-300 ">
             <tr>
                 <th class="text-left py-2 px-4 border-b border-gray-300">Sl no.</th>
                 @foreach ($columns as $column)
                     <th class="text-left py-2 px-4 border-b border-gray-300">
-                        <button wire:click="sortBy('{{ $column }}')" class="text-left font-semibold">{{ ucfirst($column) }}</button>
+                        <button wire:click="sortBy('{{ $column }}')" class="text-left font-semibold">{{ str_replace('_', ' ', ucfirst($column)); }}</button>
                     </th>
                 @endforeach
                 @if (isset($actions) && count($actions)>0)
-                    <th class="text-start py-2 px-4 border-b border-gray-300">{{ __('Actions') }}</th>
+                    <th class="text-center py-2 px-4 border-b border-gray-300">{{ __('Actions') }}</th>
                 @endif
             </tr>
         </thead>
@@ -25,9 +25,9 @@
                         <td class="text-start py-2 px-4 border-b border-gray-300">{{ $category[$column] }}</td>
                     @endforeach
                     @if (isset($actions) && count($actions)>0)
-                        <td class="text-center py-2 px-4 border-b border-gray-300 actions content-center">
+                        <td class="text-center py-2 px-4 border-b border-gray-300 actions">
                             <div class="relative inline-block">
-                                <button data-dropdown-placement="left-end" class="dropdown-toggle z-0 inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none light:text-white focus:ring-gray-50 light:bg-gray-800 light:hover:bg-gray-700 light:focus:ring-gray-600" type="button">
+                                <button data-dropdown-placement="left-end" class="dropdown-toggle z-0 inline-flex p-2 text-sm font-medium content-start text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none light:text-white focus:ring-gray-50 light:bg-gray-800 light:hover:bg-gray-700 light:focus:ring-gray-600" type="button">
                                 <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"></path></svg>
                                 </button>
 
@@ -35,7 +35,7 @@
                                 <div class="dropdown-menu absolute hidden rela z-50 right-0 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 light:bg-gray-700 light:divide-gray-600">
                                     <div class="py-2">
                                         @forelse ($actions['others'] as $action_key=>$action)
-                                            <a href="{{route($action['route'],$category)}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 light:hover:bg-gray-600 light:text-gray-200 light:hover:text-white">
+                                            <a href="{{route($action['route'],$category)}}" class="block text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 light:hover:bg-gray-600 light:text-gray-200 light:hover:text-white">
                                                 {{$action['title']}}
                                             </a>
                                         @empty
