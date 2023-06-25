@@ -13,7 +13,7 @@
         </a>
     </div>
 </x-slot>
-    <div class="container px-4">
+    <div class="container w-full p-5">
         @livewire('sub-category-data-table', ['category' => $category])
 
     </div>

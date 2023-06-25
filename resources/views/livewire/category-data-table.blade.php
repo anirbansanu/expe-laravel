@@ -1,15 +1,15 @@
-<div class="container mx-auto px-4">
+<div class="container mx-auto px-4 w-full">
     <div class="w-full flex items-center justify-end m-2 p-2">
         <input type="text" wire:model.debounce.300ms="search" placeholder="Search..." class="w-half px-4 py-2 border border-gray-300 rounded-md mb-4" />
     </div>
 
-    <table class="border-collapse table-auto w-full">
+    <table class="border-collapse table-auto ">
         <thead class="bg-indigo-300 ">
             <tr>
                 <th class="text-left py-2 px-4 border-b border-gray-300">Sl no.</th>
                 @foreach ($columns as $column)
                     <th class="text-left py-2 px-4 border-b border-gray-300">
-                        <button wire:click="sortBy('{{ $column }}')" class="text-left font-semibold">{{ ucfirst($column) }}</button>
+                        <button wire:click="sortBy('{{ $column }}')" class="text-left font-semibold">{{ str_replace('_', ' ', ucfirst($column)); }}</button>
                     </th>
                 @endforeach
                 @if (isset($actions) && count($actions)>0)

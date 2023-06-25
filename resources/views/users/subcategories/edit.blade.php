@@ -13,22 +13,25 @@
                         @csrf
                         @method('PUT')
                         <div class="mb-4">
-                            <label for="large" class="block mb-2 text-base font-medium text-gray-900 light:text-dark">Select Category</label>
+                            <label for="large" class="block mb-2 text-base font-medium text-gray-900 light:text-dark" >Select Category</label>
                             <select id="large" name="category" class="select-2 block w-full px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500">
-                                <option selected>Choose a Category</option>
+                                <option class="py-2">Choose a Category</option>
                                 @forelse ($categories as $category)
-                                    <option value="{{$category->id}}" {{$category->id == $subcategory->category->id?"selected":"" }}>{{$category->name}}</option>
+                                    <option class="py-2" value="{{$category->id}}" >{{$category->name}}</option>
                                 @empty
-                                    <option disabled>No Data</option>
+                                    <option class="py-2" disabled>No Data</option>
                                 @endforelse
 
                             </select>
+                            @error('category')
+                                <span class="error text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="mb-4">
                             <label for="name" class="font-bold text-gray-800">Category Name</label>
                             <input type="text" name="name" id="name" class="border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full" value="{{ $subcategory->name }}">
                             @error('name')
-                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                <span class="error text-red-500 text-sm">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="mb-4">
@@ -36,7 +39,7 @@
                             <textarea name="category_description" id="category_description"  class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500" rows="4">{{ $subcategory->description }}</textarea>
 
                             @error('category_description')
-                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                <span class="error text-red-500 text-sm">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="mt-4">
@@ -48,5 +51,31 @@
                 </div>
             </div>
         </div>
+        
     </div>
+
+    <script>
+        window.onload = function() {
+            handleCategoryLoad();
+          function handleCategoryLoad() {
+            var selectedCategory = "{{$subcategory->category->id}}";
+            var selectElement = document.querySelector('select[name="category"]');
+            selectElement.value = selectedCategory;
+            // Perform actions or modifications related to the selected category on page load
+            console.log('Selected category on page load:', selectedCategory);
+          }
+        };
+        // Get all elements with the error class
+        const errorElements = document.querySelectorAll('.error');
+
+
+
+        setTimeout(() => {
+            // Remove all error elements
+            errorElements.forEach(element => {
+            element.remove();
+            });
+        }, 3000);
+    </script>
+
 </x-app-layout>
