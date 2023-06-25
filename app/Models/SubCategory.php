@@ -22,4 +22,8 @@ class SubCategory extends Model
     {
         return $this->category->name;
     }
+    public function menus()
+    {
+        return $this->hasMany(SubCategoryMenu::class);
+    }
 }
